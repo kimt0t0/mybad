@@ -2,31 +2,43 @@
 
 namespace App\Controller;
 
-use App\Entity\Reservation;
 use App\Entity\Field;
-use App\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Reservation\getFields as getFields;
+use App\Entity\Reservation;
 use App\Entity\Timeslot;
-use App\Form\Type\ReservationType;
-use Symfony\Component\HttpFoundation\Request;
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+// use App\Form\Type\ReservationType;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/reservations')]
 class ReservationsController extends AbstractController
 {
-    #[Route('/', name: 'app_reservations')]
-    public function reservations()
+    #[Route('/', name: 'app_reservations', methods: 'GET')]
+    public function reservations(EntityManagerInterface $entityManager)
     {
-        $reservation = new Reservation();
-        $reservation->setUser(new User());
-        $form = $this->createForm(ReservationType::class, $reservation);
+        // *** Fetch datas
+        // $fields = $entityManager->getRepository(Field::class)->findAll(); // should return fields and load their related reservations (with their timeslotss)
+        // if (!$fields) {
+        //     throw $this->createNotFoundException(
+        //         'No fields found'
+        //     );
+        // }
+        // *** Here we would need to inject in our function: ValidatorInterface $validator
+        // $errors = $validator->validate($fields);
+        // if (count($errors) > 0) {
+        //     return new Response((string) $errors, 400);
+        // }
+        // $form = $this->createForm(ReservationType::class, $reservation);
+
+        // *** Rendering response
         return $this->render(
             'reservations/reservations.html.twig',
             [
                 'title' => 'Réservations',
-                'form' => $form,
+                // 'form' => $form,
                 'fields' => [
 
                     [
@@ -190,4 +202,19 @@ class ReservationsController extends AbstractController
             ]
         );
     }
+
+
+    // #[Route('/', name: 'app_reservations', methods: 'POST')]
+    // public function newReservation(ValidatorInterface $validator)
+    // {
+    //     $reservation = new Reservation();
+    //     $reservation->setUser(new User());
+
+    //     // todo: get form data and send request
+
+    //     $errors = $validator->validate($reservation);
+    //     if (count($errors) > 0) {
+    //         return new Response((string) $errors, 400);
+    //     }
+    // }
 }

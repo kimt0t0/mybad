@@ -30,7 +30,10 @@
             </div>
         </div>
 
-        {# <div class="form-container">{{ form(form) }}</div> #}
+        <div class="form-container">
+            {% include 'reservations/form.html.twig' %}
+            {# {% include 'reservations/form.html.twig' with form %} #}
+        </div>
         {% endfor %}
     </section>
 {% endblock %}

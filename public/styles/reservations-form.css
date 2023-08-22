@@ -1,0 +1,12 @@
+.reservation-form-container {
+    box-sizing: border-box;
+    max-width: 800px;
+    border: 1px solid #e7e9e9;
+    border-radius: 2px;
+    padding: 16px 8px;
+}
+
+.rf-title {
+    font-size: 24px;
+    font-weight: 600;
+}
