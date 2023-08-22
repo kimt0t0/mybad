@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('styles/reservations.css') }}">
+    {% endblock %}
+
+{% block mainContents %}
+    <section class="classic-section">
+        <h3 class="section-title">Nos terrains</h3>
+
+        {% for field in fields%}
+        <h4 class="field-name">Terrain {{ field.name }}</h4>
+        <div class="field-table">
+            <ol class="days-list-table">
+                {% for day in field.days %}
+                <li class="ft-column">
+                    <ol class="timeslots-list">
+                        <h5 class="dayname">{{ day.name | capitalize }}</h5>
+                        {% for slot in day.slots %}
+                        <li class="timeslot">
+                        <p class="ts-time">{{ slot.time_start}}-{{ slot.time_end }}</p>
+                        <p class="ts-state">{{slot.reservation ? 'RÉSERVÉ'}}</p>
+                        {% endfor %}
+                        </li>
+                    </ol>
+                </li>
+                {% endfor %}
+            </ol>
+        </div>
+        {% endfor %}
+    </section>
+{% endblock %}
