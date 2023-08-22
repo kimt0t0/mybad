@@ -1,3 +1,7 @@
+.field {
+    padding: 24px 0;
+}
+
 .field-name {
     width: fit-content;
     padding: 0 16px 0 0;
